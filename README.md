@@ -20,13 +20,13 @@ From repository root, do:
 
 `npm ci` (or `npm install`)
 
-Then run `npm prodbuild`
+Then run `npm run prodbuild`
 
 ### When changing or adding stuff
 
-To only monitor for Tailwind classes added, after getting JS built, the fastest option while developing is `npm dev:css`
+To only monitor for Tailwind classes added, after getting JS built, the fastest option while developing is `npm run dev:css`
 
-To monitor for JS changes as well, use `npm dev`
+To monitor for JS changes as well, use `npm run dev`
 
 ## Start .NET app
 
