@@ -1,0 +1,5 @@
+﻿@page "/clicked"
+
+<button id="clicked" class="link-primary" type="button" data-hx-get="/clicked" data-hx-swap="outerHTML" data-hx-select="#clicked">
+    Click me to hx-swap with element from /clicked at second #@(DateTime.Now.Second).@(DateTime.Now.Millisecond)
+</button>

@@ -1,0 +1,31 @@
+@using FluentValidation.Results
+
+<div role="alert">
+    @if (this.Errors is {Count: > 0})
+    {
+        <div class="p-3 mt-3 border-4 border-red-600">
+            <h2 class="text-2xl font-bold tracking-tight text-gray-900">
+                Problems in form
+            </h2>
+            <ul class="mt-3 space-y-1.5">
+                @foreach (var error in this.Errors)
+                {
+                    var hrefValue = "#" + error.PropertyName;
+                    <li>
+                        @* Ugly hack to not get anchor link clicks caught by Blazor script *@
+                        <a 
+                            href="@hrefValue" 
+                            data-script="on click js event.preventDefault();event.stopPropagation();window.anchorLink.scrollIntoView('@(error.PropertyName)') end" 
+                            class="font-bold underline text-red-600 hover:bg-yellow-200 hover:text-gray-900 hover:no-underline hover:outline-none focus:bg-yellow-200 focus:text-gray-900 focus:no-underline focus:outline-none">
+                            @error.ErrorMessage
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter] public List<ValidationFailure>? Errors { get; set; }
+}

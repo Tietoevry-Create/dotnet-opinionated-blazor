@@ -1,0 +1,8 @@
+<div class="prose bg-white rounded shadow py-6 px-3 sm:px-6 lg:px-8 max-w-full">
+    @this.ChildContent
+</div>
+
+@code {
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+}

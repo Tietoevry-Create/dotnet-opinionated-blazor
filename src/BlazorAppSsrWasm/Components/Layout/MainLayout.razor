@@ -1,0 +1,24 @@
+@inherits LayoutComponentBase
+
+@code {
+    const string Wrapper = "mx-auto max-w-4xl py-6 px-3 sm:px-6 lg:px-8";
+}
+
+<header>
+    <div class="bg-white shadow">
+        <div class="text-center py-4 px-1">
+            <h1 class="text-3xl font-bold tracking-tight text-gray-900">blazor ssr+wasm with htmx and hyperscript</h1>
+        </div>
+    </div>
+    <div class="@Wrapper">
+        <NavMenu />
+    </div>
+</header>
+<main>
+    <div class="@Wrapper">
+        @Body
+    </div>
+</main>
+<div id="blazor-error-ui" class="hidden @Wrapper">
+    An unhandled error has occurred. <a href="." class="link-primary reload">Reload</a> or <a href="." class="link-primary dismiss">dismiss</a>.
+</div>

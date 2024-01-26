@@ -1,0 +1,11 @@
+_ReSharper.Caches/
+.vs/
+*.csproj.user
+bin
+obj
+node_modules
+*.pubxml.user
+src/BlazorAppSsrWasm/wwwroot/dist/main.js
+src/BlazorAppSsrWasm/wwwroot/dist/main.js.map
+src/BlazorAppSsrWasm/wwwroot/dist/styles.css
+src/BlazorAppSsrWasm/wwwroot/dist/styles.css.map

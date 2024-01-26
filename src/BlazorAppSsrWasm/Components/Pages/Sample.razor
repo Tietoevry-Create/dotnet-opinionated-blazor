@@ -1,0 +1,71 @@
+@page "/sample"
+@using FluentValidation.Results
+@using FluentValidation
+
+@inject ILogger<Sample> logger
+@inject NavigationManager navigationManager
+@inject IValidator<SampleForm> sampleFormValidator
+
+<PageTitle>Sample</PageTitle>
+
+<h3>Sample</h3>
+
+<p>Just a sample.</p>
+
+@if (this.FormModel.Email != null)
+{
+    <div style="margin:10px 0;">
+        <p>E-mail: @this.FormModel.Email</p>
+        <p>Accepted terms: @this.FormModel.AcceptTermsForStoringContactDetails</p>
+    </div>
+}
+
+<ErrorMessageSummary Errors="@this.ValidationResult?.Errors"/>
+
+<EditForm FormName="SampleForm" Model="@this.FormModel" OnSubmit="@HandleSubmit" action="@(new Uri(navigationManager.Uri).AbsolutePath)" method="POST" novalidate>
+    <div style="margin:10px 0;" class="form-group">
+        <label for="Email">Email address</label>
+        <InputText @bind-Value="this.FormModel!.Email" class="form-control" id="Email" />
+    </div>
+    <div style="margin:10px 0;" class="form-group form-check">
+        @if (this.FormModel.AcceptTermsForStoringContactDetails)
+        {
+            <input id="AcceptTermsForStoringContactDetails" name="FormModel.AcceptTermsForStoringContactDetails" type="checkbox" value="true" checked>
+        }
+        else
+        {
+            <input id="AcceptTermsForStoringContactDetails" name="FormModel.AcceptTermsForStoringContactDetails" type="checkbox" value="true">
+        }
+
+        <label class="form-check-label" for="AcceptTermsForStoringContactDetails">Accept</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</EditForm>
+
+@code {
+    [CascadingParameter]
+    private HttpContext? HttpContext { get; set; }
+
+    [SupplyParameterFromForm]
+    private SampleForm FormModel { get; set; } = new();
+
+    private ValidationResult? ValidationResult { get; set; }
+
+    protected async Task HandleSubmit()
+    {
+        // Validate form model
+        this.ValidationResult = await sampleFormValidator.ValidateAsync(this.FormModel);
+
+        if (!this.ValidationResult.IsValid)
+        {
+            foreach (var e in this.ValidationResult.Errors)
+            {
+                logger.LogInformation($"{e.PropertyName}: {e.ErrorMessage}");
+            }
+        }
+        else
+        {
+            logger.LogInformation("Form is valid: " + this.FormModel.Email);
+        }
+    }
+}
