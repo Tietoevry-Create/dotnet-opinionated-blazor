@@ -1,45 +1,54 @@
 @page "/sample"
 @using FluentValidation.Results
 @using FluentValidation
-
 @inject ILogger<Sample> logger
 @inject NavigationManager navigationManager
 @inject IValidator<SampleForm> sampleFormValidator
 
-<PageTitle>Sample</PageTitle>
+<PageTitle>Sample form</PageTitle>
 
-<h3>Sample</h3>
+<Prose>
+    <h1>Sample form</h1>
+    <p>A Blazor <code>&lt;EditForm /&gt;</code> demo that shows how you can work with Blazor SSR components in a classic request/response mode.</p>
+    <p>Response from server with full page load. No client-side interactivity on this page except for some hacks to be able to use anchor links with the form error summary without Blazor script issues.</p>
+</Prose>
 
-<p>Just a sample.</p>
+<h2 class="text-2xl font-semibold tracking-tight mt-10">Fill out form</h2>
 
-@if (this.FormModel.Email != null)
+@if (!string.IsNullOrWhiteSpace(this.FormModel.Email) && this.FormModel.AcceptTermsForStoringContactDetails)
 {
-    <div style="margin:10px 0;">
-        <p>E-mail: @this.FormModel.Email</p>
-        <p>Accepted terms: @this.FormModel.AcceptTermsForStoringContactDetails</p>
+    <div class="p-3 border-4 border-green-600 mt-3">
+        <h3 class="text-xl font-semibold tracking-tight">Form submitted</h3>
+        <p class="mt-1">E-mail: <span class="font-semibold">@this.FormModel.Email</span></p>
+        <p>Accepted terms: <span class="font-semibold">@this.FormModel.AcceptTermsForStoringContactDetails.ToString().ToLower()</span></p>
     </div>
 }
 
 <ErrorMessageSummary Errors="@this.ValidationResult?.Errors"/>
 
 <EditForm FormName="SampleForm" Model="@this.FormModel" OnSubmit="@HandleSubmit" action="@(new Uri(navigationManager.Uri).AbsolutePath)" method="POST" novalidate>
-    <div style="margin:10px 0;" class="form-group">
-        <label for="Email">Email address</label>
-        <InputText @bind-Value="this.FormModel!.Email" class="form-control" id="Email" />
-    </div>
-    <div style="margin:10px 0;" class="form-group form-check">
-        @if (this.FormModel.AcceptTermsForStoringContactDetails)
-        {
-            <input id="AcceptTermsForStoringContactDetails" name="FormModel.AcceptTermsForStoringContactDetails" type="checkbox" value="true" checked>
-        }
-        else
-        {
-            <input id="AcceptTermsForStoringContactDetails" name="FormModel.AcceptTermsForStoringContactDetails" type="checkbox" value="true">
-        }
+    <FormRow>
+        <LabelAndErrorMessage Errors="@this.ValidationResult?.Errors" ForId="Email" Label="E-mail" />
+        <InputText @bind-Value="this.FormModel!.Email" maxlength="50" id="Email" />
+    </FormRow>
 
-        <label class="form-check-label" for="AcceptTermsForStoringContactDetails">Accept</label>
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <FormRow>
+        <FormRowErrorMessage Errors="@this.ValidationResult?.Errors" ForId="AcceptTermsForStoringContactDetails"/>
+        <div class="flex items-center gap-x-3 ml-1">
+            @if (this.FormModel.AcceptTermsForStoringContactDetails)
+            {
+                <input id="AcceptTermsForStoringContactDetails" name="FormModel.AcceptTermsForStoringContactDetails" type="checkbox" value="true" checked>
+            }
+            else
+            {
+                <input id="AcceptTermsForStoringContactDetails" name="FormModel.AcceptTermsForStoringContactDetails" type="checkbox" value="true">
+            }
+
+            <label for="AcceptTermsForStoringContactDetails">Accept terms &amp; conditions</label>
+        </div>
+    </FormRow>
+
+    <button type="submit" class="button-primary mt-6">Submit</button>
 </EditForm>
 
 @code {

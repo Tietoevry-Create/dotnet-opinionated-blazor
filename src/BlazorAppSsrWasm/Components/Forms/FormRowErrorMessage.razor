@@ -1,0 +1,19 @@
+@using FluentValidation.Results
+
+@if (this.Errors == null
+     || this.ForId == null
+     || !this.Errors.Any(x => x.PropertyName.Equals(this.ForId, StringComparison.Ordinal)))
+{
+    return;
+}
+
+@foreach (var error in this.Errors.Where(x => x.PropertyName.Equals(this.ForId, StringComparison.Ordinal)))
+{
+    <p class="text-red-600 font-bold error-message">@error.ErrorMessage</p>
+}
+
+@code {
+    [Parameter] public string? ForId { get; set; }
+
+    [Parameter] public List<ValidationFailure>? Errors { get; set; }
+}

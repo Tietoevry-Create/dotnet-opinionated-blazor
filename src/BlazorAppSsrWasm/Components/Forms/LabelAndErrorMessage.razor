@@ -1,0 +1,16 @@
+@using FluentValidation.Results
+
+<label class="block" for="@this.ForId">@this.Label</label>
+
+<FormRowErrorMessage Errors="@this.Errors" ForId="@this.ForId" />
+
+@code {
+    [Parameter]
+    public string? ForId { get; set; }
+
+    [Parameter]
+    public List<ValidationFailure>? Errors { get; set; }
+
+    [Parameter]
+    public string? Label { get; set; }
+}

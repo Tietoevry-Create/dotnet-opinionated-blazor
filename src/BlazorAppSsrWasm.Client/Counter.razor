@@ -1,14 +1,14 @@
 ﻿@using Microsoft.AspNetCore.WebUtilities
 @using Microsoft.Extensions.Primitives
 @rendermode @(new InteractiveWebAssemblyRenderMode(prerender: false))
-@inject NavigationManager NavigationManager
+@inject NavigationManager navigationManager
 
 <div class="py-6 px-3 sm:px-6 lg:px-8">
     <h2 class="text-2xl font-semibold tracking-tight">@currentCount</h2>
 
     <div class="space-x-2 mt-2">
-        <button type="button" class="button-primary" @onclick="IncrementCount">Click me</button>
-        <button type="button" class="button-primary" @onclick="ToggleBox">Toggle</button>
+        <button type="button" class="button-primary" @onclick="this.IncrementCount">Click me</button>
+        <button type="button" class="button-primary" @onclick="this.ToggleBox">Toggle</button>
     </div>
     
     <div aria-live="polite">
@@ -35,7 +35,7 @@
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
-        var uri = new Uri(this.NavigationManager.Uri);
+        var uri = new Uri(navigationManager.Uri);
 
         if (uri is not { Query: null } && uri.Query.Contains('='))
         {
@@ -59,7 +59,7 @@
             ForceLoad = false,
         };
 
-        var uri = new Uri(this.NavigationManager.Uri);
+        var uri = new Uri(navigationManager.Uri);
         var queryArguments = new Dictionary<string, StringValues>();
 
         if (uri is not { Query: null } && uri.Query.Contains('='))
@@ -78,6 +78,6 @@
 
         var to = QueryHelpers.AddQueryString(uri.AbsolutePath, queryArguments);
 
-        this.NavigationManager.NavigateTo(to, options);
+        navigationManager.NavigateTo(to, options);
     }
 }
