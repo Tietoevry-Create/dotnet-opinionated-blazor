@@ -2,7 +2,7 @@
 
 A web app sample using .NET 8.0 Blazor SSR+WASM, Tailwind CSS and with htmx.org+hyperscript.org support.
 
-Put together as quick _proof of concept_ by the .NET _Keep Learning_ Community at Tietoevry.
+Put together as quick _proof of concept_, starting from the default dotnet templates, by the .NET _Keep Learning_ Community at Tietoevry.
 
 Ideas are to avoid Blazor Server Web Socket/SignalR scaling and connection worries but still be able to use Web Assembly for interactive Blazor where suitable.
 
