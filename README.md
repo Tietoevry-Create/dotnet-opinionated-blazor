@@ -8,6 +8,8 @@ Ideas are to avoid Blazor Server Web Socket/SignalR scaling and connection worri
 
 When in a more classic request/response mode, we can use Blazor SSR components and lean on htmx.org+hyperscript.org for interactivity.
 
+<img src="https://raw.githubusercontent.com/Tietoevry-Create/dotnet-opinionated-blazor/main/docs/screenshot.png" width="500" height="815" alt="Screenshot">
+
 ## Build frontend
 
 This setup has very little JS involved, but we use npm to deliver updates for the Tailwind CLI and the JS libraries.
