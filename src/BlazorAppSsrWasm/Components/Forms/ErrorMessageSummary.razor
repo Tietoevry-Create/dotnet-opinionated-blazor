@@ -1,9 +1,16 @@
 @using FluentValidation.Results
+@implements IComponentLibraryExample
 
-<div role="alert">
+@{
+    var tempId = Guid.NewGuid().ToString("N");
+}
+
+<div role="alert" id="alert@(tempId)"></div>
+
+<div class="hidden">
     @if (this.Errors is {Count: > 0})
     {
-        <div class="p-3 mt-3 border-4 border-red-600">
+        <div class="p-3 mt-3 border-4 border-red-600" data-script="on load set #alert@(tempId).innerHTML to my.outerHTML">
             <h3 class="text-xl font-semibold tracking-tight">
                 Problems in form
             </h3>
@@ -27,5 +34,22 @@
 </div>
 
 @code {
-    [Parameter] public List<ValidationFailure>? Errors { get; set; }
+    [Parameter]
+    public List<ValidationFailure>? Errors { get; set; }
+
+    public static async Task<List<HtmlExample>> GetHtmlExamplesAsync(ComponentRenderingService componentRenderingService)
+    {
+        var list = new List<HtmlExample>();
+        list.Add(new HtmlExample
+        {
+            ParentName = "Form components",
+            Name = "Error message summary",
+            Description = "Show above form when validation fails.",
+            Html = await componentRenderingService.GetAsHtmlAsync<ErrorMessageSummary>(new Dictionary<string, object?>
+            {
+                { nameof(Errors), new List<ValidationFailure> { new("test3", "E-mail is a required field."), new("test4", "First name is a required field.") } },
+            }),
+        });
+        return list;
+    }
 }

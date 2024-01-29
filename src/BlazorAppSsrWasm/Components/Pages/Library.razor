@@ -1,0 +1,83 @@
+@page "/library"
+@using System.Reflection
+@attribute [StreamRendering]
+@inject ComponentRenderingService componentRenderingService
+
+<PageTitle>Library</PageTitle>
+
+<Prose>
+    <h1>Library</h1>
+    <p>This page demonstrates loading components implementing <code>IComponentLibraryExample</code> and their sample data.</p>
+</Prose>
+
+@if (examples == null)
+{
+    <div class="mt-10 shadow bg-white">
+        <SpinnerBlock LoadingText="Loading library..." />
+    </div>
+}
+else
+{
+    var lastParentName = string.Empty;
+
+    foreach (var example in examples)
+    {
+        @if (lastParentName != example.ParentName)
+        {
+            <h2 class="text-3xl font-semibold tracking-tight mt-10 px-3 sm:px-6 lg:px-8 text-center">@example.ParentName</h2>
+        }
+
+        <div class="mt-6 bg-white rounded shadow py-6 px-3 sm:px-6 lg:px-8">
+            <div class="prose max-w-full">
+                <h3>@example.ParentName @example.Name (@example.Variation)</h3>
+                <p>@example.Description</p>
+            </div>
+            <h3 class="text-sm font-semibold mt-6">Example</h3>
+            <div class="mt-3 p-3 border border-slate-300">
+                @((MarkupString)example.Html)
+            </div>
+            <details class="group mt-6">
+                <summary class="flex justify-start items-center cursor-pointer">
+                    <span class="text-sm font-semibold">View source</span>
+                    <span class="transition group-open:rotate-180">
+                        <svg aria-hidden="true" fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24">
+                            <path d="M6 9l6 6 6-6"></path>
+                        </svg>
+                    </span>
+                </summary>
+                <div class="prose max-w-full">
+                    <pre class="mt-3 group-open:animate-fadeIn">@example.Html.Trim()</pre>
+                </div>
+            </details>
+        </div>
+
+        lastParentName = example.ParentName;
+    }
+}
+
+@code {
+    private HtmlExample[]? examples;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var htmlExamples = new List<HtmlExample>();
+
+        foreach (var type in Assembly.GetExecutingAssembly()
+                     .GetTypes()
+                     .Where(x => x.GetInterfaces().Contains(typeof(IComponentLibraryExample))))
+        {
+            var method = type.GetMethod("GetHtmlExamplesAsync", BindingFlags.Public | BindingFlags.Static);
+            var task = method!.Invoke(null, [componentRenderingService]) as Task<List<HtmlExample>>;
+            var r = await task!;
+
+            if (!r.Any())
+            {
+                continue;
+            }
+
+            htmlExamples.AddRange(r);
+        }
+
+        this.examples = htmlExamples.OrderBy(x => x.ParentName).ThenBy(x => x.Name).ToArray();
+    }
+}

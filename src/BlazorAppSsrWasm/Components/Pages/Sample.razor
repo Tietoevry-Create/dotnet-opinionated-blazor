@@ -13,45 +13,47 @@
     <p>Response from server with full page load. No client-side interactivity on this page except for some hacks to be able to use anchor links with the form error summary without Blazor script issues.</p>
 </Prose>
 
-<h2 class="text-2xl font-semibold tracking-tight mt-10">Fill out form</h2>
+<div class="mt-6 bg-white rounded shadow py-6 px-3 sm:px-6 lg:px-8">
+    <h2 class="text-2xl font-semibold tracking-tight">Fill out form</h2>
 
-@if (this.ValidationResult is { IsValid: true }
-     && !string.IsNullOrWhiteSpace(this.FormModel.Email)
-     && this.FormModel.AcceptTermsForStoringContactDetails)
-{
-    <div class="p-3 border-4 border-green-600 mt-3">
-        <h3 class="text-xl font-semibold tracking-tight">Form submitted</h3>
-        <p class="mt-1">E-mail: <span class="font-semibold">@this.FormModel.Email</span></p>
-        <p>Accepted terms: <span class="font-semibold">@this.FormModel.AcceptTermsForStoringContactDetails.ToString().ToLower()</span></p>
-    </div>
-}
-
-<ErrorMessageSummary Errors="@this.ValidationResult?.Errors"/>
-
-<EditForm FormName="SampleForm" Model="@this.FormModel" OnSubmit="@HandleSubmit" action="@(new Uri(navigationManager.Uri).AbsolutePath)" method="POST" novalidate>
-    <FormRow>
-        <LabelAndErrorMessage Errors="@this.ValidationResult?.Errors" ForId="Email" Label="E-mail" />
-        <InputText @bind-Value="this.FormModel!.Email" maxlength="50" id="Email" />
-    </FormRow>
-
-    <FormRow>
-        <FormRowErrorMessage Errors="@this.ValidationResult?.Errors" ForId="AcceptTermsForStoringContactDetails"/>
-        <div class="flex items-center gap-x-3 ml-1">
-            @if (this.FormModel.AcceptTermsForStoringContactDetails)
-            {
-                <input id="AcceptTermsForStoringContactDetails" name="FormModel.AcceptTermsForStoringContactDetails" type="checkbox" value="true" checked>
-            }
-            else
-            {
-                <input id="AcceptTermsForStoringContactDetails" name="FormModel.AcceptTermsForStoringContactDetails" type="checkbox" value="true">
-            }
-
-            <label for="AcceptTermsForStoringContactDetails">Accept terms &amp; conditions</label>
+    @if (this.ValidationResult is { IsValid: true }
+         && !string.IsNullOrWhiteSpace(this.FormModel.Email)
+         && this.FormModel.AcceptTermsForStoringContactDetails)
+    {
+        <div class="p-3 border-4 border-green-600 mt-3">
+            <h3 class="text-xl font-semibold tracking-tight">Form submitted</h3>
+            <p class="mt-1">E-mail: <span class="font-semibold">@this.FormModel.Email</span></p>
+            <p>Accepted terms: <span class="font-semibold">@this.FormModel.AcceptTermsForStoringContactDetails.ToString().ToLower()</span></p>
         </div>
-    </FormRow>
+    }
 
-    <button type="submit" class="button-primary mt-6">Submit</button>
-</EditForm>
+    <ErrorMessageSummary Errors="@this.ValidationResult?.Errors"/>
+
+    <EditForm FormName="SampleForm" Model="@this.FormModel" OnSubmit="@HandleSubmit" action="@(new Uri(navigationManager.Uri).AbsolutePath)" method="POST" novalidate>
+        <FormRow>
+            <LabelAndErrorMessage Errors="@this.ValidationResult?.Errors" ForId="Email" Label="E-mail" />
+            <InputText @bind-Value="this.FormModel!.Email" maxlength="50" id="Email" />
+        </FormRow>
+
+        <FormRow>
+            <FormRowErrorMessage Errors="@this.ValidationResult?.Errors" ForId="AcceptTermsForStoringContactDetails"/>
+            <div class="flex items-center gap-x-3 ml-1">
+                @if (this.FormModel.AcceptTermsForStoringContactDetails)
+                {
+                    <input id="AcceptTermsForStoringContactDetails" name="FormModel.AcceptTermsForStoringContactDetails" type="checkbox" value="true" checked>
+                }
+                else
+                {
+                    <input id="AcceptTermsForStoringContactDetails" name="FormModel.AcceptTermsForStoringContactDetails" type="checkbox" value="true">
+                }
+
+                <label for="AcceptTermsForStoringContactDetails">Accept terms &amp; conditions</label>
+            </div>
+        </FormRow>
+
+        <button type="submit" class="button-primary mt-6">Submit</button>
+    </EditForm>
+</div>
 
 @code {
     [CascadingParameter]

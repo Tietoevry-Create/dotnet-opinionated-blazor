@@ -1,4 +1,5 @@
 @using FluentValidation.Results
+@implements IComponentLibraryExample
 
 <label class="block" for="@this.ForId">@this.Label</label>
 
@@ -13,4 +14,34 @@
 
     [Parameter]
     public string? Label { get; set; }
+
+    public static async Task<List<HtmlExample>> GetHtmlExamplesAsync(ComponentRenderingService componentRenderingService)
+    {
+        var list = new List<HtmlExample>();
+        list.Add(new HtmlExample
+            {
+                ParentName = "Form components",
+                Name = "Label and error message",
+                Description = "Should be used inside a form row.",
+                Html = await componentRenderingService.GetAsHtmlAsync<LabelAndErrorMessage>(new Dictionary<string, object?>
+               {
+                   { nameof(ForId), "test1" },
+                   { nameof(Errors), new List<ValidationFailure> { new("test1", "E-mail is a required field.") } },
+                   { nameof(Label), "E-mail" },
+               }),
+            });
+        list.Add(new HtmlExample
+            {
+                Variation = "No error",
+                ParentName = "Form components",
+                Name = "Label and error message",
+                Description = "Should be used inside a form row.",
+                Html = await componentRenderingService.GetAsHtmlAsync<LabelAndErrorMessage>(new Dictionary<string, object?>
+                {
+                    { nameof(ForId), "test2" },
+                    { nameof(Label), "Address" },
+                }),
+            });
+        return list;
+    }
 }

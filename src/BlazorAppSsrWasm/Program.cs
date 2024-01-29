@@ -17,6 +17,8 @@ builder.Services
     .AddInteractiveWebAssemblyComponents();
 
 builder.Services.AddMemoryCache();
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.AddSingleton<ComponentRenderingService>();
 builder.Services.AddSingleton<UiFileService>();
 
 builder.Services.AddResponseCompression(options =>

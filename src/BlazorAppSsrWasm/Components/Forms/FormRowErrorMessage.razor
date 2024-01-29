@@ -1,4 +1,5 @@
 @using FluentValidation.Results
+@using System.ComponentModel
 
 @if (this.Errors == null
      || this.ForId == null
@@ -13,7 +14,9 @@
 }
 
 @code {
-    [Parameter] public string? ForId { get; set; }
+    [Parameter]
+    public string? ForId { get; set; }
 
-    [Parameter] public List<ValidationFailure>? Errors { get; set; }
+    [Parameter]
+    public List<ValidationFailure>? Errors { get; set; }
 }
