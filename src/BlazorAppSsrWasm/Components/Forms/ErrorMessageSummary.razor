@@ -7,28 +7,31 @@
 
 <div role="alert" id="alert@(tempId)"></div>
 
-<div class="hidden">
+<div data-script="init add .hidden to me">
     @if (this.Errors is {Count: > 0})
     {
-        <div class="p-3 mt-3 border-4 border-red-600" data-script="on load set #alert@(tempId).innerHTML to my.outerHTML">
-            <h3 class="text-xl font-semibold tracking-tight">
-                Problems in form
-            </h3>
-            <ul class="mt-3 space-y-1.5">
-                @foreach (var error in this.Errors)
-                {
-                    var hrefValue = "#" + error.PropertyName;
-                    <li>
-                        @* Ugly hack to not get anchor link clicks caught by Blazor script *@
-                        <a 
-                            href="@hrefValue" 
-                            data-script="on click or touchstart js event.preventDefault();event.stopPropagation();window.anchorLink.scrollIntoView('@(error.PropertyName)') end" 
-                            class="font-bold underline text-red-600 hover:bg-yellow-200 hover:text-gray-900 hover:no-underline hover:outline-none focus:bg-yellow-200 focus:text-gray-900 focus:no-underline focus:outline-none">
-                            @error.ErrorMessage
-                        </a>
-                    </li>
-                }
-            </ul>
+        /* Hack to update the live region */
+        <div data-script="init put me.innerHTML at the end of #alert@(tempId)">
+            <div class="p-3 mt-3 border-4 border-red-600">
+                <h3 class="text-xl font-semibold tracking-tight">
+                    Problems in form
+                </h3>
+                <ul class="mt-3 space-y-1.5">
+                    @foreach (var error in this.Errors)
+                    {
+                        var hrefValue = "#" + error.PropertyName;
+                        <li>
+                            @* Ugly hack to not get anchor link clicks caught by Blazor script *@
+                            <a 
+                                href="@hrefValue" 
+                                data-script="on click or touchstart js event.preventDefault();event.stopPropagation();window.anchorLink.scrollIntoView('@(error.PropertyName)') end" 
+                                class="font-bold underline text-red-600 hover:bg-yellow-200 hover:text-gray-900 hover:no-underline hover:outline-none focus:bg-yellow-200 focus:text-gray-900 focus:no-underline focus:outline-none">
+                                @error.ErrorMessage
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
         </div>
     }
 </div>
