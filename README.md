@@ -8,6 +8,8 @@ Ideas are to avoid Blazor Server Web Socket/SignalR scaling and connection worri
 
 When in a more classic request/response mode, we can use Blazor SSR components and lean on htmx.org+hyperscript.org for interactivity.
 
+The [demo site on an Azure Linux App Service](https://blazorappssrwasm20240130173653.azurewebsites.net/) is published on push to `main`.
+
 <img src="https://raw.githubusercontent.com/Tietoevry-Create/dotnet-opinionated-blazor/main/docs/screenshot.png" width="500" height="815" alt="Screenshot">
 
 ## Build frontend
@@ -39,3 +41,12 @@ dotnet watch run
 ```
 
 Now app should be browsable: https://localhost:7182
+
+## Backlog
+
+In addition to just adding more components such as the other types of common form controls and generic things:
+
+* Add a strict Content Security Policy.
+* Optimize cache headers.
+* Add compression to all responses.
+* Add something similar to `IComponentLibraryExample` that can list Web Assembly components.
