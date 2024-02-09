@@ -1,4 +1,4 @@
-﻿@page "/"
+@page "/"
 
 <PageTitle>Home</PageTitle>
 
@@ -12,7 +12,7 @@
     <Counter IdSuffix="1" />
 </div>
 
-<div class="bg-white rounded shadow mt-10 py-6 px-3 sm:px-6 lg:px-8">
+<div class="bg-white rounded shadow mt-10 py-6 px-3 sm:px-6 lg:px-8" aria-live="polite">
     <button class="link-primary" type="button" data-hx-get="/clicked" data-hx-swap="outerHTML" data-hx-select="#clicked">
         Click me to hx-swap with element from /clicked
     </button>

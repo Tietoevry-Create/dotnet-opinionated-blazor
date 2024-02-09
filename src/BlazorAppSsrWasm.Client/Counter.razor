@@ -1,9 +1,9 @@
-﻿@using Microsoft.AspNetCore.WebUtilities
+@using Microsoft.AspNetCore.WebUtilities
 @using Microsoft.Extensions.Primitives
 @rendermode @(new InteractiveWebAssemblyRenderMode(prerender: false))
 @inject NavigationManager navigationManager
 
-<div class="py-6 px-3 sm:px-6 lg:px-8">
+<div class="py-6 px-3 sm:px-6 lg:px-8" aria-live="polite">
     <h2 class="text-2xl font-semibold tracking-tight">@currentCount</h2>
 
     <div class="space-x-2 mt-2">
@@ -11,7 +11,7 @@
         <button type="button" class="button-primary" @onclick="this.ToggleBox">Toggle</button>
     </div>
     
-    <div aria-live="polite">
+    <div>
         @if (this.currentCount > 5)
         {
             <p class="text-green-700 text-sm mt-2 font-semibold tracking-tight">Wow, more than five!</p>

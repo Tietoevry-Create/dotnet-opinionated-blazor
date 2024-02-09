@@ -1,0 +1,55 @@
+@using FluentValidation.Results
+@implements IComponentLibraryExample
+
+@{
+    var tempId = Guid.NewGuid().ToString("N");
+}
+
+<div role="alert" id="alert@(tempId)"></div>
+
+<div data-script="init add .hidden to me">
+    @if (this.ChildContent != null)
+    {
+        /* Hack to update the live region */
+        <div data-script="init put me.innerHTML at the end of #alert@(tempId)">
+            <div class="p-3 mt-3 border-4 border-green-600">
+                @if (!string.IsNullOrWhiteSpace(this.Heading))
+                {
+                    <p class="text-xl font-semibold tracking-tight">
+                        @this.Heading
+                    </p>
+                }
+                <div class="mt-3">
+                    <p>@this.ChildContent</p>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public string? Heading { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    private static RenderFragment childContentHtmlExample => @<p>Test.</p>;
+
+    public static async Task<List<HtmlExample>> GetHtmlExamplesAsync(ComponentRenderingService componentRenderingService)
+    {
+        var list = new List<HtmlExample>();
+        list.Add(new HtmlExample
+        {
+            ParentName = "Form components",
+            Name = "Alert message",
+            Description = "Show above form on success.",
+            Html = await componentRenderingService.GetAsHtmlAsync<AlertMessage>(new Dictionary<string, object?>
+            {
+                { nameof(Heading), "Alert message" },
+                { nameof(ChildContent), childContentHtmlExample },
+            }),
+        });
+        return list;
+    }
+}
