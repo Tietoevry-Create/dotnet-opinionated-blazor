@@ -1,0 +1,68 @@
+@page "/library-example"
+@layout EmptyLayout
+@using System.Reflection
+@using BlazorAppSsrWasm.Components.Layout
+@using Microsoft.AspNetCore.WebUtilities
+@inject ComponentRenderingService componentRenderingService
+@inject NavigationManager navigationManager
+
+<PageTitle>@title</PageTitle>
+
+@if (examples != null)
+{
+    @((MarkupString)Environment.NewLine)
+    @((MarkupString)"<!-- HTML source for component start -->")
+    @((MarkupString)Environment.NewLine)
+
+    @foreach (var example in examples)
+    {
+        @((MarkupString)example.Html)
+    }
+
+    @((MarkupString)Environment.NewLine)
+    @((MarkupString)"<!-- HTML source for component end -->")
+    @((MarkupString)Environment.NewLine)
+}
+
+@code {
+    private HtmlExample[]? examples;
+
+    private string title = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var uri = navigationManager.ToAbsoluteUri(navigationManager.Uri);
+
+        if (!QueryHelpers.ParseQuery(uri.Query).TryGetValue("c", out var componentName))
+        {
+            return;
+        }
+
+        if (!QueryHelpers.ParseQuery(uri.Query).TryGetValue("v", out var variation))
+        {
+            variation = "Default";
+        }
+
+        var htmlExamples = new List<HtmlExample>();
+
+        foreach (var type in Assembly.GetExecutingAssembly()
+                     .GetTypes()
+                     .Where(x => x.FullName == componentName && x.GetInterfaces().Contains(typeof(IComponentLibraryExample))))
+        {
+            var method = type.GetMethod("GetHtmlExamplesAsync", BindingFlags.Public | BindingFlags.Static);
+            var task = method!.Invoke(null, [componentRenderingService]) as Task<List<HtmlExample>>;
+            var r = await task!;
+
+            if (!r.Any())
+            {
+                continue;
+            }
+
+            htmlExamples.AddRange(r.Where(x => x.Variation == variation));
+        }
+
+        this.examples = htmlExamples.OrderBy(x => x.ParentName).ThenBy(x => x.Name).ToArray();
+
+        this.title = this.examples.Any() ? $"{this.examples.First().Name} ({variation}) - {this.examples.First().ParentName}" : $"{componentName} ({variation})";
+    }
+}

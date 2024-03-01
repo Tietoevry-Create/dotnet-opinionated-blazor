@@ -39,7 +39,7 @@
     public static async Task<List<HtmlExample>> GetHtmlExamplesAsync(ComponentRenderingService componentRenderingService)
     {
         var list = new List<HtmlExample>();
-        list.Add(new HtmlExample
+        list.Add(new HtmlExample(typeof(AlertMessage))
         {
             ParentName = "Form components",
             Name = "Alert message",

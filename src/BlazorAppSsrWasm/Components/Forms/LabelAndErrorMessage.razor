@@ -18,7 +18,7 @@
     public static async Task<List<HtmlExample>> GetHtmlExamplesAsync(ComponentRenderingService componentRenderingService)
     {
         var list = new List<HtmlExample>();
-        list.Add(new HtmlExample
+        list.Add(new HtmlExample(typeof(LabelAndErrorMessage))
             {
                 ParentName = "Form components",
                 Name = "Label and error message",
@@ -30,7 +30,7 @@
                    { nameof(Label), "E-mail" },
                }),
             });
-        list.Add(new HtmlExample
+        list.Add(new HtmlExample(typeof(LabelAndErrorMessage))
             {
                 Variation = "No error",
                 ParentName = "Form components",
