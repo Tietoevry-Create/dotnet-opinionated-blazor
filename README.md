@@ -8,7 +8,7 @@ App uses a classic request/response mode, we can use Blazor Static SSR component
 
 _Note:_ Look in the `net8.0-with-wasm-example` branch for older code that also had Blazor WASM component support.
 
-The [demo site on an Azure Linux App Service](https://BlazorApp20240130173653.azurewebsites.net/) is published on push to `main`.
+The [demo site on an Azure Linux App Service](https://blazorappssrwasm20240130173653.azurewebsites.net/) is published on push to `main`.
 
 ## Build frontend
 
@@ -47,4 +47,4 @@ In addition to just adding more components such as the other types of common for
 * Add a strict Content Security Policy.
 * Optimize cache headers.
 * Add compression to all responses.
-* Add something similar to `IComponentLibraryExample` that can list Web Assembly components.
+* Add minimal endpoint concept for rendering components partially.
