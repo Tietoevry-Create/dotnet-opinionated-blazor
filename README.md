@@ -1,14 +1,14 @@
 # An opinionated Blazor app
 
-A web app sample using .NET 8.0 Blazor SSR+WASM, Tailwind CSS and with htmx.org+hyperscript.org support.
+A web app sample using .NET 9.0 Blazor Static SSR (and none of the interactive modes), Tailwind CSS and with htmx.org+hyperscript.org support.
 
 Put together as quick _proof of concept_, starting from the default dotnet templates, by the .NET _Keep Learning_ Community at Tietoevry.
 
-Ideas are to avoid Blazor Server Web Socket/SignalR scaling and connection worries but still be able to use Web Assembly for interactive Blazor where suitable.
+App uses a classic request/response mode, we can use Blazor Static SSR components to structure markup and lean on htmx.org+hyperscript.org for interactivity.
 
-When in a more classic request/response mode, we can use Blazor SSR components and lean on htmx.org+hyperscript.org for interactivity.
+_Note:_ Look in the `net8.0-with-wasm-example` branch for older code that also had Blazor WASM component support.
 
-The [demo site on an Azure Linux App Service](https://blazorappssrwasm20240130173653.azurewebsites.net/) is published on push to `main`.
+The [demo site on an Azure Linux App Service](https://BlazorApp20240130173653.azurewebsites.net/) is published on push to `main`.
 
 <img src="https://raw.githubusercontent.com/Tietoevry-Create/dotnet-opinionated-blazor/main/docs/screenshot.png" width="500" height="815" alt="Screenshot">
 
@@ -36,7 +36,7 @@ Then or in parallel, from repository root, do:
 
 ```
 cd src
-cd BlazorAppSsrWasm
+cd BlazorApp
 dotnet watch run
 ```
 

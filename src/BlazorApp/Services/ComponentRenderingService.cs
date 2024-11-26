@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 
-namespace BlazorAppSsrWasm.Services;
+namespace BlazorApp.Services;
 
 public class ComponentRenderingService(ILoggerFactory loggerFactory, IHttpContextAccessor httpContextAccessor)
 {

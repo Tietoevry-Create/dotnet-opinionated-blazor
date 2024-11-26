@@ -1,9 +1,6 @@
 using System.IO.Compression;
-using BlazorAppSsrWasm.Components;
-using BlazorAppSsrWasm.Models;
-using BlazorAppSsrWasm.Services;
-using BlazorAppSsrWasm.Validators;
-using FluentValidation;
+using BlazorApp.Components;
+using BlazorApp.Services;
 using Microsoft.AspNetCore.ResponseCompression;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,13 +10,11 @@ builder.Logging.AddConsole(options => options.LogToStandardErrorThreshold = LogL
 
 // Add services to the container.
 builder.Services
-    .AddRazorComponents()
-    .AddInteractiveWebAssemblyComponents();
+    .AddRazorComponents();
 
 builder.Services.AddMemoryCache();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddSingleton<ComponentRenderingService>();
-builder.Services.AddSingleton<UiFileService>();
 
 builder.Services.AddResponseCompression(options =>
 {
@@ -33,16 +28,10 @@ builder.Services.Configure<BrotliCompressionProviderOptions>(options =>
     options.Level = CompressionLevel.Optimal;
 });
 
-builder.Services.AddScoped<IValidator<SampleForm>, SampleFormValidator>();
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseWebAssemblyDebugging();
-}
-else
+if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error", createScopeForErrors: true);
 
@@ -52,11 +41,10 @@ else
 
 app.UseHttpsRedirection();
 
-app.UseStaticFiles();
+app.MapStaticAssets();
+
 app.UseAntiforgery();
 
-app.MapRazorComponents<App>()
-    .AddInteractiveWebAssemblyRenderMode()
-    .AddAdditionalAssemblies(typeof(BlazorAppSsrWasm.Client.Counter).Assembly);
+app.MapRazorComponents<App>();
 
 app.Run();

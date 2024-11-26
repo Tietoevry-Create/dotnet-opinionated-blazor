@@ -5,7 +5,7 @@ bin
 obj
 node_modules
 *.pubxml.user
-src/BlazorAppSsrWasm/wwwroot/dist/main.js
-src/BlazorAppSsrWasm/wwwroot/dist/main.js.map
-src/BlazorAppSsrWasm/wwwroot/dist/styles.css
-src/BlazorAppSsrWasm/wwwroot/dist/styles.css.map
+src/BlazorApp/wwwroot/dist/main.js
+src/BlazorApp/wwwroot/dist/main.js.map
+src/BlazorApp/wwwroot/dist/styles.css
+src/BlazorApp/wwwroot/dist/styles.css.map

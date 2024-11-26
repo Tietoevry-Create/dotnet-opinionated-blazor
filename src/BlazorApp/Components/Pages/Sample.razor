@@ -1,9 +1,7 @@
 @page "/sample"
 @using FluentValidation.Results
-@using FluentValidation
 @inject ILogger<Sample> logger
 @inject NavigationManager navigationManager
-@inject IValidator<SampleForm> sampleFormValidator
 
 <PageTitle>Sample form</PageTitle>
 
@@ -63,10 +61,10 @@
 
     private ValidationResult? ValidationResult { get; set; }
 
-    protected async Task HandleSubmit()
+    protected void HandleSubmit()
     {
         // Validate form model
-        this.ValidationResult = await sampleFormValidator.ValidateAsync(this.FormModel);
+        this.ValidationResult = this.FormModel.Validate();
 
         if (!this.ValidationResult.IsValid)
         {

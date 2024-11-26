@@ -21,10 +21,8 @@
                     {
                         var hrefValue = "#" + error.PropertyName;
                         <li>
-                            @* Ugly hack to not get anchor link clicks caught by Blazor script *@
                             <a 
                                 href="@hrefValue" 
-                                data-script="on click or touchstart js event.preventDefault();event.stopPropagation();window.anchorLink.scrollIntoView('@(error.PropertyName)') end" 
                                 class="font-bold underline text-red-600 hover:bg-yellow-200 hover:text-gray-900 hover:no-underline hover:outline-none focus:bg-yellow-200 focus:text-gray-900 focus:no-underline focus:outline-none">
                                 @error.ErrorMessage
                             </a>

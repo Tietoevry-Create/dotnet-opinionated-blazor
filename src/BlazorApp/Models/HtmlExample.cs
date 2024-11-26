@@ -1,4 +1,4 @@
-namespace BlazorAppSsrWasm.Models;
+namespace BlazorApp.Models;
 
 public class HtmlExample
 {

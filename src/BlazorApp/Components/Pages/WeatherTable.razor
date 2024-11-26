@@ -1,0 +1,53 @@
+@page "/weather-table"
+
+<PageTitle>Weather table</PageTitle>
+
+@if (this.forecasts == null)
+{
+    return;
+}
+
+<table class="min-w-full divide-y divide-gray-300" id="js-weather-table">
+    <thead class="bg-gray-50">
+    <tr>
+        <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Date</th>
+        <th scope="col" class="px-3 py-3.5 text-sm text-center font-semibold text-gray-900">Temp. (C)</th>
+        <th scope="col" class="py-3.5 pr-4 pl-3 text-sm text-center font-semibold text-gray-900 sm:pr-6">Temp. (F)</th>
+    </tr>
+    </thead>
+    <tbody class="divide-y divide-gray-200 bg-white">
+    @foreach (var forecast in this.forecasts)
+    {
+        <tr>
+            <td class="py-4 pl-4 pr-3 text-sm sm:pl-6">@forecast.Date.ToShortDateString()</td>
+            <td class="px-3 py-4 font-medium text-sm text-center">@forecast.TemperatureC</td>
+            <td class="py-4 pr-4 pl-3 font-medium text-sm text-center">@forecast.TemperatureF</td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+@code {
+    private WeatherForecast[]? forecasts;
+
+    protected override void OnInitialized()
+    {
+        // Simulate slow loading
+        Thread.Sleep(2500);
+
+        var startDate = DateOnly.FromDateTime(DateTime.Now);
+
+        this.forecasts = Enumerable.Range(1, 5).Select(index => new WeatherForecast
+        {
+            Date = startDate.AddDays(index),
+            TemperatureC = Random.Shared.Next(1, 35),
+        }).ToArray();
+    }
+
+    private class WeatherForecast
+    {
+        public DateOnly Date { get; init; }
+        public int TemperatureC { get; init; }
+        public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+    }
+}

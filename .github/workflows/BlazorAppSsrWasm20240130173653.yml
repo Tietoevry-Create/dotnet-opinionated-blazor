@@ -5,10 +5,10 @@ on:
     - main
 env:
   AZURE_WEBAPP_NAME: BlazorAppSsrWasm20240130173653
-  AZURE_WEBAPP_PACKAGE_PATH: src/BlazorAppSsrWasm/published
+  AZURE_WEBAPP_PACKAGE_PATH: src/BlazorApp/published
   CONFIGURATION: Release
   DOTNET_CORE_VERSION: 8.0.x
-  WORKING_DIRECTORY: src/BlazorAppSsrWasm
+  WORKING_DIRECTORY: src/BlazorApp
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -46,5 +46,5 @@ jobs:
       uses: azure/webapps-deploy@v2
       with:
         app-name: ${{ env.AZURE_WEBAPP_NAME }}
-        publish-profile: ${{ secrets.BlazorAppSsrWasm20240130173653_5996 }}
+        publish-profile: ${{ secrets.BlazorApp20240130173653_5996 }}
         package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}

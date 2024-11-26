@@ -3,9 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorAppSsrWasm", "src\BlazorAppSsrWasm\BlazorAppSsrWasm.csproj", "{D3A42B67-526E-41E0-B7B6-BFF4DC717EDA}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorAppSsrWasm.Client", "src\BlazorAppSsrWasm.Client\BlazorAppSsrWasm.Client.csproj", "{1B3DC4E5-069A-4622-B46D-70A10BD523FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorApp", "src\BlazorApp\BlazorApp.csproj", "{D3A42B67-526E-41E0-B7B6-BFF4DC717EDA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{10F6FD1F-FB2B-4A7F-8119-1DD051C235EE}"
 	ProjectSection(SolutionItems) = preProject

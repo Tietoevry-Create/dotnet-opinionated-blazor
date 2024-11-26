@@ -1,7 +1,7 @@
-using BlazorAppSsrWasm.Services;
+using BlazorApp.Services;
 using Microsoft.AspNetCore.Components;
 
-namespace BlazorAppSsrWasm.Models;
+namespace BlazorApp.Models;
 
 public interface IComponentLibraryExample
 {

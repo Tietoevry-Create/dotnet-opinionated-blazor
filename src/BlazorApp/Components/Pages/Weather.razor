@@ -1,0 +1,31 @@
+@page "/weather"
+
+<PageTitle>Weather</PageTitle>
+
+<Prose>
+    <h1>Weather</h1>
+    <p>This component demonstrates lazy loading data.</p>
+    <p>We also have a hyperscript example on this page.</p>
+</Prose>
+
+<div class="mt-10" aria-live="polite">
+    <Prose>
+        <h2>
+            <span id="first">Hello</span>
+            <span id="second">hyperscript!</span>
+        </h2>
+        <button class="button-primary" data-script="on click set my.innerText to #first.innerText + ' ' + #second.innerText">
+            Click to concat the two spans as new button text
+        </button>
+    </Prose>
+</div>
+
+<div class="mt-10 shadow bg-white" aria-live="polite"
+     data-hx-trigger="revealed"
+     data-hx-get="/weather-table"
+     data-hx-select="#js-weather-table"
+     data-hx-swap="innerHTML">
+     <div class="py-6 px-3 sm:px-6 lg:px-8">
+        <SpinnerBlock LoadingText="Loading weather..." />
+     </div>    
+</div>

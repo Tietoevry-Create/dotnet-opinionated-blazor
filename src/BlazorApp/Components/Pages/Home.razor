@@ -1,0 +1,27 @@
+@page "/"
+
+<PageTitle>Home</PageTitle>
+
+<Prose>
+    <h1>Hello, world!</h1>
+    <p>Welcome to your new app.</p>
+
+    <h2>It is using:</h2>
+    <ul>
+        <li>Tailwind CSS</li>
+        <li>htmx.org</li>
+        <li>hyperscript.org</li>
+        <li>webpack</li>
+        <li>FluentValidation</li>
+        <li>StyleCop</li>
+    </ul>
+</Prose>
+
+<div class="bg-white rounded shadow mt-10 py-6 px-3 sm:px-6 lg:px-8" aria-live="polite">
+    <button class="link-primary" type="button"
+            data-hx-get="/clicked"
+            data-hx-swap="outerHTML"
+            data-hx-select="#clicked">
+        Click me to hx-swap with element from /clicked
+    </button>
+</div>

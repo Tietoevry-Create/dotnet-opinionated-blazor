@@ -4,7 +4,7 @@ module.exports = {
 	entry: './index.js',
 	output: {
 		filename: 'main.js',
-		path: path.resolve(__dirname, './src/BlazorAppSsrWasm/wwwroot/dist/')
+		path: path.resolve(__dirname, './src/BlazorApp/wwwroot/dist/')
 	},
 	mode: 'production',
 	watchOptions: {
