@@ -10,8 +10,6 @@ _Note:_ Look in the `net8.0-with-wasm-example` branch for older code that also h
 
 The [demo site on an Azure Linux App Service](https://BlazorApp20240130173653.azurewebsites.net/) is published on push to `main`.
 
-<img src="https://raw.githubusercontent.com/Tietoevry-Create/dotnet-opinionated-blazor/main/docs/screenshot.png" width="500" height="815" alt="Screenshot">
-
 ## Build frontend
 
 This setup has very little JS involved, but we use npm to deliver updates for the Tailwind CLI and the JS libraries.
