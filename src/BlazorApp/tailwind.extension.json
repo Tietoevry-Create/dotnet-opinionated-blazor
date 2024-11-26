@@ -1,5 +1,0 @@
-{
-	"ConfigurationFile": "..\\..\\tailwind.config.js",
-	"InputCssFile": "..\\..\\styles.css",
-	"OutputCssFile": "wwwroot\\dist\\styles.css"
-}

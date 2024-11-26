@@ -1,3 +1,13 @@
+@import "tailwindcss";
+
+@plugin "@tailwindcss/forms";
+
+@plugin "@tailwindcss/typography";
+
+@theme {
+	--font-sans: "Inter var", "Helvetica", "sans-serif";
+}
+
 @layer base {
 	/* https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap */
 	@font-face {
@@ -10,11 +20,7 @@
 	}
 }
 
-@tailwind base;
-
-@tailwind components;
-
-@layer components {
+@layer utilities {
 	.prose a, .link-primary {
 		@apply underline text-blue-600 hover:bg-yellow-200 hover:text-gray-900 hover:no-underline hover:outline-none focus:bg-yellow-200 focus:text-gray-900 focus:no-underline focus:outline-none;
 	}
@@ -27,5 +33,3 @@
 		@apply underline text-gray-100 bg-blue-600 hover:bg-yellow-200 hover:text-gray-900 hover:no-underline hover:outline-none focus:bg-yellow-200 focus:text-gray-900 focus:no-underline focus:outline-none py-2.5 px-3;
 	}
 }
-
-@tailwind utilities;
