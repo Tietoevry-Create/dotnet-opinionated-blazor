@@ -48,3 +48,19 @@ In addition to just adding more components such as the other types of common for
 * Optimize cache headers.
 * Add compression to all responses.
 * Add minimal endpoint concept for rendering components partially.
+
+## Open source references
+
+Built using .NET 9.0 and with these packages and projects. Thank you!
+
+| Project                                                   | License                   |
+|-----------------------------------------------------------|---------------------------|
+| [Tailwind CSS](https://tailwindcss.com/)                  | MIT                       |
+| [htmx.org](https://htmx.org/)                             | Zero-Clause BSD           |
+| [hyperscript.org](https://hyperscript.org/)               | BSD 2-Clause              |
+| [FluentValidation](https://github.com/FluentValidation)   | Apache License 2.0        |
+| [Webpack](https://webpack.js.org/)                        | MIT                       |
+| [cross-env](https://github.com/kentcdodds/cross-env)      | MIT                       |
+| [npm-run-all](https://github.com/mysticatea/npm-run-all)  | MIT                       |
+
+Other things can be involved too but these are the ones we take a direct dependency on.
